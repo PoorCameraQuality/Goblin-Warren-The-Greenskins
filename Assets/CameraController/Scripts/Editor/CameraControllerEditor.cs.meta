@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5222a73b34721f14b968150dbc6932d5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 108837
+  packageName: Isometric Camera Controller
+  packageVersion: 2.2.2
+  assetPath: Assets/CameraController/Scripts/Editor/CameraControllerEditor.cs
+  uploadId: 475298

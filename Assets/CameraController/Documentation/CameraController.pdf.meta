@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c53f01e7f0f171b45a9f88ece358a722
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 108837
+  packageName: Isometric Camera Controller
+  packageVersion: 2.2.2
+  assetPath: Assets/CameraController/Documentation/CameraController.pdf
+  uploadId: 475298

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7dfe997cd151ca9408d32c436cee37ca
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 108837
+  packageName: Isometric Camera Controller
+  packageVersion: 2.2.2
+  assetPath: Assets/CameraController/Demo/DemoScenes/Demo_TargetFollow.unity
+  uploadId: 475298

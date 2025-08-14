@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: bfa9ffad962176748998e2e462e32e12
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 108837
+  packageName: Isometric Camera Controller
+  packageVersion: 2.2.2
+  assetPath: Assets/CameraController/Demo/Scripts/MovingObject.cs
+  uploadId: 475298
