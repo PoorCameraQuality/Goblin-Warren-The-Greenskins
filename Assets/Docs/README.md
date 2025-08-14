@@ -94,8 +94,11 @@ A single-player isometric colony simulator with RTS elements, built in Unity 202
 ## Third-Party Assets
 - **Isometric Camera Controller** - Unity Asset Store
 - **Isometric 2.5D Toolset** - Unity Asset Store  
-- **A* Pathfinding Project** - Free version
+- **A* Pathfinding Project** - Free version (https://arongranberg.com/astar)
 - **Infinite Isometric Terrain Generator** - GitHub
+
+### Package Installation
+See `PackageInstallation.md` for detailed installation instructions for all required packages.
 
 ## License
 This project follows the Unity license terms for the game engine and third-party assets.
