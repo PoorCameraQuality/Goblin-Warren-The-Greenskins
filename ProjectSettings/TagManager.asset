@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - Ground
+  - Building
+  - Resource
+  - Unit
+  - Obstacle
+  - UIRaycast
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: UI
+    uniqueID: 0
+    locked: 0
+  - name: Units
+    uniqueID: 1
+    locked: 0
+  - name: Buildings
+    uniqueID: 2
+    locked: 0
+  - name: Props
+    uniqueID: 3
+    locked: 0
+  - name: Ground
+    uniqueID: 4
+    locked: 0

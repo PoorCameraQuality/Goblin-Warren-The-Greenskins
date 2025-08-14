@@ -193,7 +193,7 @@ ProjectSettings/InputManager.asset
 ProjectSettings/NavMeshSettings.asset
 ProjectSettings/Physics2DSettings.asset
 ProjectSettings/QualitySettings.asset
-ProjectSettings/TagManager.asset
+# ProjectSettings/TagManager.asset - Keep this for layer configuration
 ProjectSettings/TimeManager.asset
 ProjectSettings/AudioManager.asset
 ProjectSettings/ClusterInputManager.asset
