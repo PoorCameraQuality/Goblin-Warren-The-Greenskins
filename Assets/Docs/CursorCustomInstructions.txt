@@ -1,0 +1,69 @@
+# Cursor Custom Instructions - Goblin Warrens Unity Project
+
+## Unity Version Target
+**Target Unity 6000.2.0f1. No APIs outside this version.**
+
+## Core Rules
+- Use ScriptableObjects for all game data
+- Follow singleton manager pattern for core systems
+- Use events for inter-system communication
+- All AI movement must use A* Pathfinding Project integration
+- All resource changes go through ResourceManager APIs
+- UI must only display data, not contain gameplay logic
+
+## Coding Standards
+- **Classes/Methods**: PascalCase
+- **Variables**: camelCase
+- **Constants**: UPPER_SNAKE_CASE
+- Keep methods ≤30 lines
+- Use `[SerializeField]` for inspector fields
+- Use `[Header("Section")]` for organized inspectors
+- Use `[CreateAssetMenu]` for ScriptableObjects
+- Always check null references
+- Cache component references in Awake/Start
+
+## File Organization
+- Namespace: `GoblinWarrens.[Category]`
+- One class per file
+- Place in appropriate /Scripts subfolder
+- Follow established folder structure
+
+## Forbidden Practices
+- NO APIs outside Unity 6000.2.0f1
+- NO circular dependencies
+- NO hardcoded values (use ScriptableObjects)
+- NO direct system access (use public APIs)
+- NO Update() polling when events available
+- NO complex inheritance hierarchies
+
+## Common Patterns
+```csharp
+// Manager singleton
+public class ExampleManager : MonoBehaviour
+{
+    public static ExampleManager Instance { get; private set; }
+    private void Awake() { if (Instance == null) Instance = this; else Destroy(gameObject); }
+}
+
+// ScriptableObject data
+[CreateAssetMenu(fileName = "ExampleData", menuName = "GoblinWarrens/Data/ExampleData")]
+public class ExampleData : ScriptableObject
+{
+    [Header("Configuration")]
+    [SerializeField] private string displayName;
+}
+```
+
+## Integration Points
+- A* Pathfinding: Use grid-based movement, node size 1.0
+- Input: Support both Old and New Input System
+- Events: Use for inter-system communication
+- Performance: Object pooling, minimize GetComponent calls
+
+## Before Writing Code
+1. Check existing patterns in similar systems
+2. Verify Unity 6000.2.0f1 API compatibility
+3. Plan integration with existing managers
+4. Consider performance implications
+
+**Remember: Target Unity 6000.2.0f1. No APIs outside this version.**

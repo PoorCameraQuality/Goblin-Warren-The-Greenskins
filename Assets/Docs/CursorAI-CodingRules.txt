@@ -1,0 +1,177 @@
+# Cursor AI Coding Rules for Goblin Warrens Unity Project
+
+## Project Overview
+Single-player isometric colony simulator with RTS elements, built in Unity 6000.2.0f1.
+
+## Unity Version Target
+**Target Unity 6000.2.0f1. No APIs outside this version.**
+
+## Core Architecture Rules
+
+### 1. ScriptableObjects for Game Data
+- All game data must use ScriptableObjects
+- No hardcoded values in scripts
+- Follow established patterns in /ScriptableObjects folder
+
+### 2. Manager Pattern
+- Use singleton managers for core systems
+- Maintain loose coupling between systems
+- Use events for inter-system communication
+- No direct references between unrelated systems
+
+### 3. Resource Management
+- All resource changes go through ResourceManager APIs
+- Never modify resource totals directly
+- Use events for resource updates
+
+### 4. AI and Pathfinding
+- All AI movement must use A* Pathfinding Project integration
+- Follow established AIManager patterns
+- Use state machines for AI behavior
+
+## Coding Standards
+
+### Naming Conventions
+- **Classes**: PascalCase (e.g., `GameManager`, `ResourceManager`)
+- **Methods**: PascalCase (e.g., `InitializeSystem()`, `UpdateResources()`)
+- **Variables**: camelCase (e.g., `currentHealth`, `maxWorkers`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `MAX_WORKERS`, `DEFAULT_SPEED`)
+
+### Method Guidelines
+- Keep methods small and focused (≤30 lines)
+- Single responsibility principle
+- Clear method names that describe purpose
+- Document public methods with summary comments
+
+### File Organization
+- Follow established folder structure in /Scripts
+- One class per file
+- Namespace: `GoblinWarrens.[Category]`
+- Place in appropriate subfolder based on system
+
+## Unity-Specific Rules
+
+### Component Guidelines
+- Use `[SerializeField]` for inspector-exposed private fields
+- Use `[Header("Section Name")]` for organized inspectors
+- Use `[CreateAssetMenu]` for ScriptableObject creation
+- Use `[RequireComponent]` when dependencies are mandatory
+
+### Performance Considerations
+- Cache component references in Awake/Start
+- Use Object pooling for frequently created/destroyed objects
+- Minimize GetComponent calls in Update loops
+- Use events instead of polling
+
+### Error Handling
+- Always check for null references before accessing objects
+- Use Debug.LogWarning for recoverable issues
+- Use Debug.LogError for critical failures
+- Validate input parameters in public methods
+
+## Asset Management
+
+### File Naming
+- Use descriptive names (e.g., `WorkerAI.cs`, `ResourceManager.cs`)
+- Follow Unity naming conventions for assets
+- Use consistent prefixes for related assets
+
+### Version Control
+- All scripts must compile without errors
+- Follow conventional commit messages
+- Use Git LFS for large assets
+- Keep .meta files in sync
+
+## Integration Points
+
+### A* Pathfinding Project
+- Use established integration patterns
+- Follow grid-based movement conventions
+- Use proper node size (1.0) for isometric grid
+
+### Input System
+- Support both Old and New Input System
+- Use established input handling patterns
+- Maintain compatibility with both systems
+
+### UI System
+- UI must only display data, not contain gameplay logic
+- Use established UIManager patterns
+- Follow event-driven UI updates
+
+## Forbidden Practices
+
+### DO NOT:
+- Use APIs not available in Unity 6000.2.0f1
+- Create circular dependencies between systems
+- Hardcode values that should be configurable
+- Access other systems directly without using their public APIs
+- Use Update() for polling when events are available
+- Create overly complex inheritance hierarchies
+- Use reflection for performance-critical code
+
+### MUST:
+- Follow established architectural patterns
+- Use ScriptableObjects for all game data
+- Implement proper error handling
+- Document public APIs
+- Test compilation before committing
+- Use established naming conventions
+- Follow Unity best practices
+
+## Development Workflow
+
+### Before Writing Code:
+1. Check existing patterns in similar systems
+2. Verify Unity API compatibility with 6000.2.0f1
+3. Plan integration with existing managers
+4. Consider performance implications
+
+### Code Review Checklist:
+- [ ] Compiles without errors
+- [ ] Follows naming conventions
+- [ ] Uses appropriate Unity patterns
+- [ ] Implements proper error handling
+- [ ] Integrates with existing systems
+- [ ] Uses ScriptableObjects for data
+- [ ] Follows established architecture
+
+## Quick Reference
+
+### Common Patterns:
+```csharp
+// Manager singleton pattern
+public class ExampleManager : MonoBehaviour
+{
+    public static ExampleManager Instance { get; private set; }
+    
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
+}
+
+// ScriptableObject data pattern
+[CreateAssetMenu(fileName = "ExampleData", menuName = "GoblinWarrens/Data/ExampleData")]
+public class ExampleData : ScriptableObject
+{
+    [Header("Configuration")]
+    [SerializeField] private string displayName;
+    [SerializeField] private int maxValue;
+}
+```
+
+### Event System Usage:
+```csharp
+// Define events in managers
+public static event Action<int> OnResourceChanged;
+
+// Subscribe in other systems
+private void OnEnable() => ResourceManager.OnResourceChanged += HandleResourceChange;
+private void OnDisable() => ResourceManager.OnResourceChanged -= HandleResourceChange;
+```
+
+Remember: **Target Unity 6000.2.0f1. No APIs outside this version.**

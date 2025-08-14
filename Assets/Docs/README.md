@@ -27,6 +27,8 @@ A single-player isometric colony simulator with RTS elements, built in Unity 202
 ### Key Documentation
 - `technical-reference.md` - Technical specifications and coding standards
 - `ArchitectureOverview.md` - System architecture and data flow
+- `CursorAI-CodingRules.txt` - Cursor AI integration rules and guidelines
+- `CursorCustomInstructions.txt` - Condensed rules for Cursor Custom Instructions
 - `README.md` - This file
 
 ## Development Setup
@@ -90,6 +92,19 @@ A single-player isometric colony simulator with RTS elements, built in Unity 202
 3. Open `Assets/Scenes/Main.unity`
 4. Review documentation in `Assets/Docs/`
 5. Start development following the architecture guidelines
+
+## Cursor AI Integration
+
+### Setup Instructions:
+1. **Copy Custom Instructions**: Copy content from `CursorCustomInstructions.txt` to Cursor → Settings → Custom Instructions
+2. **Reference Full Rules**: Use `CursorAI-CodingRules.txt` for detailed development guidelines
+3. **Unity Version**: Ensure all code targets Unity 6000.2.0f1 specifically
+
+### Key Integration Points:
+- **Unity Version**: Target Unity 6000.2.0f1. No APIs outside this version
+- **Architecture**: Follow established manager patterns and ScriptableObject usage
+- **Coding Standards**: Use established naming conventions and file organization
+- **Integration**: Follow A* Pathfinding and Input System integration patterns
 
 ## Third-Party Assets
 - **Isometric Camera Controller** - Unity Asset Store
