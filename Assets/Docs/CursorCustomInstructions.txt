@@ -1,14 +1,15 @@
 # Cursor Custom Instructions - Goblin Warrens Unity Project
 
 ## Unity Version Target
-**Target Unity 6000.2.0f1. No APIs outside this version.**
+**Target Unity 6000.2.0f1 (exact match, no upgrades without approval). No APIs outside this version.**
 
 ## Core Rules
-- Use ScriptableObjects for all game data
+- **Before writing code**: Always read and follow technical-reference.md and ArchitectureOverview.md in /Docs/
+- Use ScriptableObjects for all game data as defined in technical-reference.md
 - Follow singleton manager pattern for core systems
 - Use events for inter-system communication
-- All AI movement must use A* Pathfinding Project integration
-- All resource changes go through ResourceManager APIs
+- All AI movement must use the A* Pathfinding Project integration defined in our architecture
+- All resource changes must go through ResourceManager APIs — do not modify resource totals directly
 - UI must only display data, not contain gameplay logic
 
 ## Coding Standards
@@ -35,6 +36,9 @@
 - NO direct system access (use public APIs)
 - NO Update() polling when events available
 - NO complex inheritance hierarchies
+- NO inventing Unity methods/classes that don't exist
+- NO new packages/dependencies without approval
+- NO features outside MVP without explicit instruction
 
 ## Common Patterns
 ```csharp
@@ -61,9 +65,20 @@ public class ExampleData : ScriptableObject
 - Performance: Object pooling, minimize GetComponent calls
 
 ## Before Writing Code
-1. Check existing patterns in similar systems
-2. Verify Unity 6000.2.0f1 API compatibility
-3. Plan integration with existing managers
-4. Consider performance implications
+1. **Always read**: technical-reference.md and ArchitectureOverview.md in /Docs/
+2. Check existing patterns in similar systems
+3. Verify Unity 6000.2.0f1 API compatibility
+4. Plan integration with existing managers
+5. Consider performance implications
 
-**Remember: Target Unity 6000.2.0f1. No APIs outside this version.**
+## Debugging
+- Prefix debug output with `[GW]`
+- Use `#if UNITY_EDITOR` for editor-only code
+- Always check null references before accessing objects
+
+## Reminders
+- 2D isometric, tilemap-based game
+- Use "Sort by Y" depth handling
+- No IsoTools or outdated packages
+
+**Remember: Target Unity 6000.2.0f1 (exact match, no upgrades without approval). No APIs outside this version.**

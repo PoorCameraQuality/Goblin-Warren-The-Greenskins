@@ -4,28 +4,29 @@
 Single-player isometric colony simulator with RTS elements, built in Unity 6000.2.0f1.
 
 ## Unity Version Target
-**Target Unity 6000.2.0f1. No APIs outside this version.**
+**Target Unity 6000.2.0f1 (exact match, no upgrades without approval). No APIs outside this version.**
 
 ## Core Architecture Rules
 
 ### 1. ScriptableObjects for Game Data
-- All game data must use ScriptableObjects
+- All game data must use ScriptableObjects as defined in technical-reference.md
 - No hardcoded values in scripts
 - Follow established patterns in /ScriptableObjects folder
+- Use ScriptableObjects for game data as defined in technical-reference.md
 
 ### 2. Manager Pattern
 - Use singleton managers for core systems
-- Maintain loose coupling between systems
+- Maintain loose coupling between systems — use public APIs/events, not hard-coded dependencies
 - Use events for inter-system communication
 - No direct references between unrelated systems
 
 ### 3. Resource Management
-- All resource changes go through ResourceManager APIs
+- All resource changes must go through ResourceManager APIs — do not modify resource totals directly
 - Never modify resource totals directly
 - Use events for resource updates
 
 ### 4. AI and Pathfinding
-- All AI movement must use A* Pathfinding Project integration
+- All AI movement must use the A* Pathfinding Project integration defined in our architecture
 - Follow established AIManager patterns
 - Use state machines for AI behavior
 
@@ -62,12 +63,17 @@ Single-player isometric colony simulator with RTS elements, built in Unity 6000.
 - Use Object pooling for frequently created/destroyed objects
 - Minimize GetComponent calls in Update loops
 - Use events instead of polling
+- Avoid per-frame allocations in Update; cache references and reuse collections
+- Minimize Update methods — prefer events, coroutines, or fixed-interval managers
+- If adding heavy logic, add a comment: `// PERF: why this is OK` and suggest an optimization path
 
 ### Error Handling
-- Always check for null references before accessing objects
+- Always check for null references and invalid states before accessing objects or data
 - Use Debug.LogWarning for recoverable issues
 - Use Debug.LogError for critical failures
 - Validate input parameters in public methods
+- Guard all GetComponent calls and lookups with null checks
+- Never assume scene objects exist — validate in Awake/Start
 
 ## Asset Management
 
@@ -109,23 +115,28 @@ Single-player isometric colony simulator with RTS elements, built in Unity 6000.
 - Use Update() for polling when events are available
 - Create overly complex inheritance hierarchies
 - Use reflection for performance-critical code
+- Do not invent Unity methods, variables, or classes that do not exist in the current project or Unity API
+- Do not add new packages, namespaces, or third-party dependencies without explicit approval
+- Do not add features outside the MVP feature set unless explicitly instructed
 
 ### MUST:
 - Follow established architectural patterns
 - Use ScriptableObjects for all game data
 - Implement proper error handling
-- Document public APIs
-- Test compilation before committing
+- Document new methods and classes with XML summary comments explaining purpose, parameters, and return values
+- Always compile without errors before returning code
 - Use established naming conventions
 - Follow Unity best practices
+- Always return complete, functional code that compiles with zero errors or warnings in Unity
 
 ## Development Workflow
 
 ### Before Writing Code:
-1. Check existing patterns in similar systems
-2. Verify Unity API compatibility with 6000.2.0f1
-3. Plan integration with existing managers
-4. Consider performance implications
+1. Always read and follow these files in `/Docs/`: technical-reference.md, ArchitectureOverview.md
+2. Check existing patterns in similar systems
+3. Verify Unity API compatibility with 6000.2.0f1
+4. Plan integration with existing managers
+5. Consider performance implications
 
 ### Code Review Checklist:
 - [ ] Compiles without errors
@@ -135,6 +146,9 @@ Single-player isometric colony simulator with RTS elements, built in Unity 6000.
 - [ ] Integrates with existing systems
 - [ ] Uses ScriptableObjects for data
 - [ ] Follows established architecture
+- [ ] Only modifies explicitly mentioned files
+- [ ] Follows existing class patterns
+- [ ] Includes XML documentation for new public APIs
 
 ## Quick Reference
 
@@ -174,4 +188,15 @@ private void OnEnable() => ResourceManager.OnResourceChanged += HandleResourceCh
 private void OnDisable() => ResourceManager.OnResourceChanged -= HandleResourceChange;
 ```
 
-Remember: **Target Unity 6000.2.0f1. No APIs outside this version.**
+## Debugging & Testing
+- Prefix all debug output with `[GW]` so logs are easy to find
+- Use `#if UNITY_EDITOR` for editor-only code
+- Guard all GetComponent calls and lookups with null checks
+- Never assume scene objects exist — validate in Awake/Start
+
+## Reminders
+- This is a 2D isometric, tilemap-based game
+- Use "Sort by Y" depth handling as described in technical-reference.md
+- Do not reintroduce IsoTools or other outdated/unmaintained packages
+
+Remember: **Target Unity 6000.2.0f1 (exact match, no upgrades without approval). No APIs outside this version.**

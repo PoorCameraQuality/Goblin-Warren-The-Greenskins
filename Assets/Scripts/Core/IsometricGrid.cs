@@ -26,6 +26,7 @@ namespace GoblinWarrens.Core
         
         private void Awake()
         {
+            Debug.Log("[GW] IsometricGrid: Awake() called");
             InitializeGrid();
             CreateTestTiles();
         }
@@ -35,22 +36,37 @@ namespace GoblinWarrens.Core
         /// </summary>
         private void InitializeGrid()
         {
+            Debug.Log("[GW] IsometricGrid: InitializeGrid() called");
+            
             if (grid == null)
             {
+                Debug.Log("[GW] IsometricGrid: Grid component is null, trying to get it");
                 grid = GetComponent<Grid>();
                 if (grid == null)
                 {
+                    Debug.Log("[GW] IsometricGrid: No Grid component found, adding one");
                     grid = gameObject.AddComponent<Grid>();
                 }
             }
             
-            // Configure grid for isometric layout
-            grid.cellSize = cellSize;
-            grid.cellGap = cellGap;
-            grid.cellLayout = cellLayout;
-            grid.cellSwizzle = cellSwizzle;
-            
-            Debug.Log("IsometricGrid: Grid initialized with isometric layout");
+            Debug.Log($"[GW] IsometricGrid: Grid component found: {grid != null}");
+            if (grid != null)
+            {
+                Debug.Log($"[GW] IsometricGrid: Grid component type: {grid.GetType()}");
+                
+                // Configure grid for isometric layout
+                grid.cellSize = cellSize;
+                grid.cellGap = cellGap;
+                grid.cellLayout = cellLayout;
+                grid.cellSwizzle = cellSwizzle;
+                
+                Debug.Log($"[GW] IsometricGrid: Grid configured - CellSize: {grid.cellSize}, Layout: {grid.cellLayout}");
+                Debug.Log("[GW] IsometricGrid: Grid initialized with isometric layout");
+            }
+            else
+            {
+                Debug.LogError("[GW] IsometricGrid: Failed to get or create Grid component!");
+            }
         }
         
         /// <summary>
@@ -58,23 +74,46 @@ namespace GoblinWarrens.Core
         /// </summary>
         private void CreateTestTiles()
         {
+            Debug.Log("[GW] IsometricGrid: CreateTestTiles() called");
+            Debug.Log($"[GW] IsometricGrid: groundTilemap is null: {groundTilemap == null}");
+            Debug.Log($"[GW] IsometricGrid: testGroundTile is null: {testGroundTile == null}");
+            
             if (groundTilemap == null || testGroundTile == null)
             {
-                Debug.LogWarning("IsometricGrid: Missing ground tilemap or test tile");
+                Debug.LogWarning("[GW] IsometricGrid: Missing ground tilemap or test tile");
+                Debug.LogWarning($"[GW] IsometricGrid: groundTilemap: {groundTilemap}");
+                Debug.LogWarning($"[GW] IsometricGrid: testGroundTile: {testGroundTile}");
                 return;
             }
             
+            Debug.Log($"[GW] IsometricGrid: About to create tiles in {testGridSize * 2 + 1}x{testGridSize * 2 + 1} grid");
+            
+            if (groundTilemap != null)
+            {
+                Debug.Log($"[GW] IsometricGrid: Ground tilemap type: {groundTilemap.GetType()}");
+            }
+            if (testGroundTile != null)
+            {
+                Debug.Log($"[GW] IsometricGrid: Test ground tile type: {testGroundTile.GetType()}");
+            }
+            
+            int tilesCreated = 0;
             // Create a simple test pattern
             for (int x = -testGridSize; x <= testGridSize; x++)
             {
                 for (int y = -testGridSize; y <= testGridSize; y++)
                 {
                     Vector3Int tilePosition = new Vector3Int(x, y, 0);
-                    groundTilemap.SetTile(tilePosition, testGroundTile);
+                    if (groundTilemap != null && testGroundTile != null)
+                    {
+                        groundTilemap.SetTile(tilePosition, testGroundTile);
+                        tilesCreated++;
+                    }
                 }
             }
             
-            Debug.Log($"IsometricGrid: Created test tiles in {testGridSize * 2 + 1}x{testGridSize * 2 + 1} grid");
+            Debug.Log($"[GW] IsometricGrid: Successfully created {tilesCreated} test tiles");
+            Debug.Log($"[GW] IsometricGrid: Created test tiles in {testGridSize * 2 + 1}x{testGridSize * 2 + 1} grid");
         }
         
         /// <summary>
@@ -123,7 +162,7 @@ namespace GoblinWarrens.Core
                 case "resource":
                     return resourceTilemap;
                 default:
-                    Debug.LogWarning($"IsometricGrid: Unknown layer '{layerName}'");
+                    Debug.LogWarning($"[GW] IsometricGrid: Unknown layer '{layerName}'");
                     return null;
             }
         }
